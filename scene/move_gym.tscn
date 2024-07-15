@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7icb6k3ji63o"]
+
+[ext_resource type="Script" path="res://code/common/basicmovement.gd" id="1_sbhxy"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7tku2"]
+particle_flag_disable_z = true
+angular_velocity_min = -157.97
+angular_velocity_max = 139.75
+gravity = Vector3(0, 98, 0)
+scale_min = 20.0
+scale_max = 90.0
+
+[node name="MoveGym" type="Node2D"]
+
+[node name="Player" type="Sprite2D" parent="."]
+script = ExtResource("1_sbhxy")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Player"]
+position = Vector2(314, 231)
+process_material = SubResource("ParticleProcessMaterial_7tku2")

@@ -12,6 +12,7 @@ config_version=5
 
 config/name="GameName"
 config/tags=PackedStringArray("created_by_me")
+run/main_scene="res://scene/move_gym.tscn"
 config/features=PackedStringArray("4.2")
 config/icon="res://icon.png"
 config/windows_native_icon="res://icon.ico"
