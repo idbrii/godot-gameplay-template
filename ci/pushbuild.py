@@ -38,10 +38,16 @@ def build_platform(platform, export_root, output_artifact):
 
     print()
     print(f"Building {platform} build...")
+    godot = Path.home() / "scoop/apps/godot/current/godot.exe"
+    if not godot.is_file():
+        godot = "godot"
+
+    print("Using godot:", godot.as_posix())
+
     # pprint.pprint(
     subprocess.check_call(
         [
-            "godot",
+            godot,
             "--headless",
             "--export-release",
             platform,
@@ -49,19 +55,22 @@ def build_platform(platform, export_root, output_artifact):
             project_path,
         ]
     )
-    itch_channel = f"{itch_project}:{platform}"
-    print("Uploading as version", itch_channel, version)
-    # pprint.pprint(
-    subprocess.check_call(
-        [
-            "butler",
-            "push",
-            export_path,
-            itch_channel,
-            "--userversion",
-            version,
-        ]
-    )
+    if itch_project:
+        itch_channel = f"{itch_project}:{platform}"
+        print("Uploading as version", itch_channel, version)
+        # pprint.pprint(
+        subprocess.check_call(
+            [
+                "butler",
+                "push",
+                export_path,
+                itch_channel,
+                "--userversion",
+                version,
+            ]
+        )
+    else:
+        print("Skipping itchio upload (empty itch_project)")
 
 
 project_root = Path(__file__).resolve().parent.parent
