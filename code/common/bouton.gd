@@ -1,17 +1,21 @@
 extends Object
 
-class_name Baton
+class_name Bouton
 
-# Example usage:
+# A code-driven input wrapper that makes it easier to define mappings for
+# multiple players.
+# Heavily inspired by https://github.com/tesselode/baton
+#
+# You define your input as a dictionary:
 #   var INPUT_MAP := {
 #       "gamepad": {
 #           "controls": {
 #               "jump":       [JOY_BUTTON_A],
 #               "dash":       [JOY_BUTTON_X],
-#               "walk_left":  [Baton.JoyAxis(JOY_AXIS_LEFT_X, -1)],
-#               "walk_right": [Baton.JoyAxis(JOY_AXIS_LEFT_X, 1)],
-#               "walk_up":    [Baton.JoyAxis(JOY_AXIS_LEFT_Y, -1)],
-#               "walk_down":  [Baton.JoyAxis(JOY_AXIS_LEFT_Y, 1)],
+#               "walk_left":  [Bouton.JoyAxis(JOY_AXIS_LEFT_X, -1)],
+#               "walk_right": [Bouton.JoyAxis(JOY_AXIS_LEFT_X, 1)],
+#               "walk_up":    [Bouton.JoyAxis(JOY_AXIS_LEFT_Y, -1)],
+#               "walk_down":  [Bouton.JoyAxis(JOY_AXIS_LEFT_Y, 1)],
 #           },
 #           "device": 0,
 #       },
@@ -35,15 +39,18 @@ class_name Baton
 #       "deadzone": 0.5,
 #   }
 #
+# And then create a new Bouton object for each player. To make a "press a
+# button" to connect, you can create it from an InputEvent:
+#
 #   ## Setup a global input handler for a player spawn input, instantiate your
 #   player, and call this on them before add_child.
 #   func setup_input(event: InputEvent):
-#       _input = Baton.new(Baton.filter_for_input_device(INPUT_MAP, event))
+#       _input = Bouton.new(Bouton.filter_for_input_device(INPUT_MAP, event))
 #
 #   func _ready() -> void:
 #       if not _input:
-#           printt("[Player] Creating fallback Baton for player that consumes all inputs.", self)
-#           _input = Baton.new(INPUT_MAP)
+#           printt("[Player] Creating fallback Bouton for player that consumes all inputs.", self)
+#           _input = Bouton.new(INPUT_MAP)
 #
 #   func _process(dt):
 #       var move = _input.get_vector("move")
@@ -88,9 +95,9 @@ static func filter_for_input_device(input_map_template, event: InputEvent):
         #   func _input(event: InputEvent):
         #       if event.is_action_pressed("spawn_player"):
         #           var p = _spawn_player()
-        #           p.setup_input(Baton.new(Baton.filter_for_input_device(event)))
+        #           p.setup_input(Bouton.new(Bouton.filter_for_input_device(event)))
         #           _spawnpoint.add_child(p)
-        push_error("Why did we try to create Baton with this event: %s" % event)
+        push_error("Why did we try to create Bouton with this event: %s" % event)
     return input_map
 
 
