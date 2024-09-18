@@ -1,0 +1,3 @@
+# Ignore warnings that aren't likely to be bugs.
+disable: [class-definitions-order, class-variable-name, no-elif-return]
+max-line-length: 200
