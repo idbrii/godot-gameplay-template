@@ -1,7 +1,7 @@
 extends Node
 
-const seq : LevelSceneSequence = preload("res://levels/level_sequence.tres")
-const music_scene = preload("res://scenes/common/music.tscn")
+@export var seq : LevelSceneSequence
+@export var music_scene : PackedScene
 
 
 # TODO: Can I actually find the current scene so the next level is correct when
