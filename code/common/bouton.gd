@@ -1,9 +1,9 @@
+class_name Bouton
 extends Object
 
-class_name Bouton
+## A code-driven input wrapper that makes it easier to define mappings for
+## multiple players.
 
-# A code-driven input wrapper that makes it easier to define mappings for
-# multiple players.
 # Heavily inspired by https://github.com/tesselode/baton
 #
 # You define your input as a dictionary:

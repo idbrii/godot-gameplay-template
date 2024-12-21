@@ -1,3 +1,4 @@
+## A list of level scenes for use with SceneSequencer.
 class_name LevelSceneSequence
 extends Resource
 
