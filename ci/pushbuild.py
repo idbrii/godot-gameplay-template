@@ -10,7 +10,7 @@ import git
 # Configuration
 project = "TODO"
 itch_project = f"idbrii/{project}"
-export_path = Path("C:/code/builds/") / project
+export_root = Path("C:/code/builds/") / project
 
 
 def parse_and_build_version(version_path, repo_path):
@@ -55,6 +55,38 @@ def build_platform(platform, export_root, output_artifact):
             project_path,
         ]
     )
+
+    if platform == "web":
+        # Enforce itchio's restrictions on web builds that I'm likely to hit.
+        # https://itch.io/docs/creators/html5#zip-file-requirements
+        MEGA = 1024 * 1024
+        total_files = 0
+        total_mb = 0
+        for f in export_path.iterdir():
+            total_files += 1
+            size_mb = f.stat().st_size / MEGA
+            total_mb += size_mb
+            if size_mb > 200:
+                print(
+                    "Error: file exceeds itch.io maximum file size (200 MB): {} is {:.2f} MB".format(
+                        f, size_mb
+                    )
+                )
+                return
+
+        if total_files > 1000:
+            print(
+                "Error: game exceeds itch.io maximum file count (1000 files):",
+                total_files,
+            )
+
+        if total_mb > 500:
+            print(
+                "Error: game exceeds itch.io maximum file size (500 MB): {:.2f} MB".format(
+                    total_mb
+                )
+            )
+
     if itch_project:
         itch_channel = f"{itch_project}:{platform}"
         print("Uploading as version", itch_channel, version)
@@ -79,5 +111,5 @@ version_path = project_root / "ci/version.json"
 
 version = parse_and_build_version(version_path, project_root)
 
-build_platform("web", export_path, "index.html")
-build_platform("win", export_path, project + ".exe")
+build_platform("web", export_root, "index.html")
+build_platform("win", export_root, project + ".exe")
