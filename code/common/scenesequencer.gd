@@ -1,8 +1,7 @@
 extends Node
 
-@export var seq : LevelSceneSequence
-@export var music_scene : PackedScene
-
+@export var seq: LevelSceneSequence
+@export var music_scene: PackedScene
 
 # TODO: Can I actually find the current scene so the next level is correct when
 # debug loading in the middle of progression?
@@ -18,6 +17,8 @@ func _ready():
 
 
 var can_complete := true
+
+
 func _on_completed_level():
     can_complete = false
     var current_index = seq.levels.find(current_level)
@@ -32,9 +33,8 @@ func _on_completed_level():
     get_tree().change_scene_to_packed(next_level)
     call_deferred("_allow_complete")
 
+
 func _allow_complete():
     # Delay a second before you can transition again to prevent double transitions.
     await get_tree().create_timer(1).timeout
     can_complete = true
-
-

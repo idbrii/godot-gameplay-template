@@ -1,5 +1,6 @@
 class_name Random
 
+
 # Random integer, inclusive.
 static func integer(lower: int, upper: int) -> int:
     #~ return randi() % upper + lower # godot3
@@ -49,7 +50,7 @@ static func weighted_choice(choices):
 #
 # Usage:
 #   weighted_fill({'epic': 1, 'rare': 3, 'common': 6}, 10)
-static func weighted_fill(choices, desired_count : int):
+static func weighted_fill(choices, desired_count: int):
     var total_count := desired_count
     var weight_sum := _sum_weights(choices)
     var mult = total_count / weight_sum
@@ -73,10 +74,10 @@ static func weighted_fill(choices, desired_count : int):
 
 
 static func test():
-    var c = choose_value([1,2,3,4])
+    var c = choose_value([1, 2, 3, 4])
     assert(1 <= c)
     assert(c <= 4)
-    var choices := {'epic': 1, 'rare': 3, 'common': 6}
+    var choices := {"epic": 1, "rare": 3, "common": 6}
     assert(choices[weighted_choice(choices)])
     var sum := _sum_weights(choices)
     var population = weighted_fill(choices, int(sum))
@@ -84,7 +85,7 @@ static func test():
     for key in choices:
         var weight = choices[key]
         assert(population.count(key) == weight)
-    printt(weighted_fill({'epic': 1, 'rare': 3, 'common': 6}, 10))
+    printt(weighted_fill({"epic": 1, "rare": 3, "common": 6}, 10))
 
 # Add to run in gdscript interpreter.
 #~ func _ready():

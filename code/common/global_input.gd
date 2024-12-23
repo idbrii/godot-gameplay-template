@@ -2,6 +2,7 @@ extends Node
 
 var CHEATS_ENABLED := true
 
+
 func _input(event: InputEvent):
     if Input.is_action_just_pressed("toggle_full_screen"):
         _swap_fullscreen_mode()

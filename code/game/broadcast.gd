@@ -1,4 +1,3 @@
 extends Node
 
-
-signal completed_level()
+signal completed_level

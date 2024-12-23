@@ -1,4 +1,3 @@
-
 static func flat_clamp(v: Vector3, max_length: float) -> Vector3:
     var flat := v
     flat.y = 0
@@ -26,4 +25,3 @@ static func deadzone(input, current, max_len):
     var delta = current - input
     delta = delta.limit_length(max_len)
     return input + delta
-

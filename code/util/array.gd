@@ -1,4 +1,3 @@
-
 static func remove_if(t: Array, should_remove_fn: Callable):
     for i in range(t.size() - 1, -1, -1):
         if should_remove_fn.call(t[i]):
@@ -18,7 +17,7 @@ static func remove_if_untested(t: Array, should_remove_fn: Callable):
             if i != keep:
                 t[keep] = t[i]
                 t[i] = null
-            keep += 1 # Increment position of where we'll place the next kept value.
+            keep += 1  # Increment position of where we'll place the next kept value.
 
     # Remove the nulls
     for i in range(keep, n):

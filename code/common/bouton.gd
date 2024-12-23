@@ -59,9 +59,6 @@ extends Object
 #       if just_jump:
 #           velocity.y = -jump_force
 
-
-
-
 var inputs
 
 
@@ -101,13 +98,11 @@ static func filter_for_input_device(input_map_template, event: InputEvent):
     return input_map
 
 
-
-
-
 func kbm_key_to_inputevent(key) -> InputEventKey:
     var ev := InputEventKey.new()
     ev.keycode = key
     return ev
+
 
 func gamepad_key_to_inputevent(data, device) -> InputEvent:
     var input_type := typeof(data)
@@ -131,6 +126,7 @@ func gamepad_key_to_inputevent(data, device) -> InputEvent:
     assert(false, "Invalid type for gamepad input.")
     return null
 
+
 func _ensure_action(action, deadzone):
     if not InputMap.has_action(action):
         InputMap.add_action(action, deadzone)
@@ -139,6 +135,7 @@ func _ensure_action(action, deadzone):
 var device_actions := {}
 var pairs := {}
 var quads := {}
+
 
 func _init(input_map):
     # The input map is never the same for all players. Usually they're similar:
@@ -170,18 +167,33 @@ func _init(input_map):
         var pair = input_map.pairs[action]
         pairs[action] = pair
         var q := []
-        assert(len(pair) == 2, "Each pair should have two directions: {label}".format({label=action}))
+        assert(
+            len(pair) == 2, "Each pair should have two directions: {label}".format({label = action})
+        )
         for input in pair:
             # Remap the axis input to this device's action names. (walk_left -> walk_left0)
             q.append(device_actions[input])
-            assert(input in device_actions, "pair '{label}' contained action not in controls: {input_action}".format({label=action, input_action=input}))
+            assert(
+                input in device_actions,
+                "pair '{label}' contained action not in controls: {input_action}".format(
+                    {label = action, input_action = input}
+                )
+            )
         pairs[action] = q
     for action in input_map.quads:
         var quad = input_map.quads[action]
-        assert(len(quad) == 4, "Each quad should have four directions: {label}".format({label=action}))
+        assert(
+            len(quad) == 4,
+            "Each quad should have four directions: {label}".format({label = action})
+        )
         var q := []
         for input in quad:
-            assert(input in device_actions, "quad '{label}' contained action not in controls: {input_action}".format({label=action, input_action=input}))
+            assert(
+                input in device_actions,
+                "quad '{label}' contained action not in controls: {input_action}".format(
+                    {label = action, input_action = input}
+                )
+            )
             q.append(device_actions[input])
         quads[action] = q
 
