@@ -38,7 +38,7 @@ static func get_all_files(
     path: String,
     file_ext := "",
     ignore_import := true,
-    files: Array[String] = []
+    files: Array[String] = [],
 ) -> Array[String]:
     # Source - https://gist.github.com/hiulit/772b8784436898fd7f942750ad99e33e
     if file_ext.begins_with("."):
@@ -82,7 +82,7 @@ static func get_all_files(
 static func load_resources_in_path(
     path: String,
     extension_filter: String = "",
-    ignore_import := true
+    ignore_import := true,
 ) -> Array[Resource]:
     var files = get_all_files(path, extension_filter, ignore_import)
     var loaded: Array[Resource] = []
