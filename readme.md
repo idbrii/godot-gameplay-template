@@ -1,4 +1,4 @@
-# template
+# template - GameName
 
 [![Godot Version](https://img.shields.io/badge/Godot-4.3-blue)](https://godotengine.org/download/)
 
