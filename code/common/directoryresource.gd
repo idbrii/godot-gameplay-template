@@ -13,7 +13,9 @@ class_name DirectoryResource
     get:
         return false
     set(value):
-        _load_resources()
+        if target_directory:
+            _load_resources()
+        # else might be loading or otherwise invalid.
 
 ## The absolute folder path to load resources from.
 ## Example: res://scenes/blah/
